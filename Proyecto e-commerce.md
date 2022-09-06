@@ -11,3 +11,10 @@
 |-------------|----------------|-------------|
 |-------------|----------------|-------------|
 |-------------|----------------|-------------|
+
+
+Faltantes : 
+**sign up**
+- falta revisar que contrase;as sean iguales 
+- establecer compo unique al email del formulario 
+- dar mensaje de registro exitoso 

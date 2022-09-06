@@ -13,7 +13,6 @@ const ProductSchema = Schema({
                    required: true},
     price:Number,
     stock:Number,
-    stockStatus:Boolean,
     saleStatus:Boolean,
 
     files:[{

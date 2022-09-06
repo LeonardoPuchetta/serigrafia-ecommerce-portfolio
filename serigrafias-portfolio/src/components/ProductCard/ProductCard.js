@@ -18,22 +18,24 @@ export default function ProductCard(props) {
 
 
 
-const {title,description} = props;
+const {product} = props;
 
   return (
     <>
-    <Card style={{ width: '15rem'}} className='product-card'>
+    <Card  className='product-card'>
       <CarouselComponent/>
-      {/* <Card.Img variant="top" src="https://canova.com.ar/img/remera_corta_azul.jpg" /> */}
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title>{product.name} </Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">{product.price}  $</Card.Subtitle>
+        
         <Card.Text>
-          {description}
+          {product.description}
         </Card.Text>
-        <Button variant="primary" onClick={handleShowProduct}>Ver detalle</Button>
+        
+        <Button variant="outline-dark" onClick={handleShowProduct} className='product-card-btn'>Ver detalle</Button>
       </Card.Body>
     </Card>
-    <OffCanvasComponent setShowCanvas={setShowCanvasProduct} show={showCanvasProduct} title={title}/>
+    <OffCanvasComponent setShowCanvas={setShowCanvasProduct} show={showCanvasProduct} title={product.name}/>
     </>  
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 import Carousel from 'react-bootstrap/Carousel';
 
@@ -16,15 +16,16 @@ const imageSrc = ["https://img.lojasrenner.com.br/item/547998581/small/1.jpg",
 
 
   return (
-    <Carousel fade>
-        {imageSrc.map((srcItem)=>{
+    <Carousel interval={null}>
+        {imageSrc.map((srcItem,index)=>{
                 return (
-                    <Carousel.Item>
+                    <Carousel.Item key={index} >
                         <img
                             className="d-block w-100"
                             src={srcItem}
                             alt=""
                             style={imageStyle}
+                            
                             />
                     </Carousel.Item>
                 )

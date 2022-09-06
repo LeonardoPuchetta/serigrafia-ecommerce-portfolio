@@ -5,13 +5,15 @@ import {
     Route,
     Routes 
   } from "react-router-dom";
-import routes from './config/routes'  
+import routes from './config/routes'  ;
+import AuthProvider from "./providers/AuthProvider";
 
 import './App.css';
 
 
 function App() {
   return (
+  <AuthProvider>
     <Router>
         <Routes>
           {routes.map((route,index) => (
@@ -24,6 +26,7 @@ function App() {
           ))}
         </Routes>
     </Router>
+  </AuthProvider>
   );
 }
 

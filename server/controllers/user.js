@@ -1,7 +1,7 @@
 //para encriptar contrasenas 
 const bcrypt = require('bcrypt');
 //para generar los tokens 
-// const jwt = require('../services/jwt');
+const jwt = require('../services/jwt');
 //para realizar el encriptado del password
 const SALTS_TO_BCRYPT = 12;
  
@@ -12,12 +12,12 @@ function signUp(request,response){
    //nueva instancia del modelo User
    const user = new User();
 
-   const { name, lastname ,celphone,email, password , repeatPassword } = request.body ; 
+   const { name, lastname ,phone,email, password , repeatPassword } = request.body ; 
 
    //asignamos valores uno a uno con user
    user.name= name;
    user.lastname=lastname;
-   user.celphone=celphone;
+   user.phone=phone;
    user.email=email;
    user.role= "default";
 
@@ -59,9 +59,53 @@ function signUp(request,response){
     }}
 
 
+function signIn(request,response){
+
+        const params = request.body ;
+        
+        const email= params.email;
+        const password= params.password;
+    
+        //funcionalidad de mongoose para buscar en la base 
+        User.findOne({email} , (err, userStored) => {
+    
+            if(err){
+                response.status(500).send({message:"Error del servidor."})
+            } else {
+                if (!userStored){
+                    response.status(404).send({message:"Usuario no encontrado."})
+                } else {
+    
+                    // comparacion de contrasenas con bcrypt la ingresada con la encriptada
+                    //el valor de la contrasena encriptada es userStored,password 
+                    bcrypt.compare(password,userStored.password , (err,check)=>{
+    
+                        if (err){
+                            response.status(500).send({message:"Error del servidor."})
+    
+                        } else if (!check) {
+                           
+                            response.status(404).send({message:"La contraseña es incorrecta."})
+    
+    
+                        } else { 
+     
+                                response.status(200).send({
+                                    accessToken : jwt.createAccessToken(userStored),
+                                    refreshToken : jwt.createRefreshToken(userStored)
+                                                    })
+                                }
+                    }) 
+                }
+            }
+        })
+    }
+
+
 
 
 module.exports = {
         
-        signUp
+        signUp,
+        signIn
     }
