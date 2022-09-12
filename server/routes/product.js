@@ -6,6 +6,9 @@ const ProductController = require('./../controllers/product');
 const api = express.Router();
 
 api.post("/new-product",ProductController.newProduct);
+api.get("/get-product",ProductController.getProduct);
+api.get("/get-products/:type",ProductController.getProducts);
+api.get("/get-sale-products",ProductController.getSaleProducts);
 
 
 module.exports = api 

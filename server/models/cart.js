@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 
 const CartSchema = Schema({
 
-        userId: {
-            type : String,
+        userEmail: {
             unique : true,
+            type : String,
             required: true, 
         },
         total: Number,
-        items:Number,
-        products:[],
+        items: Number,
+        productsId:[{type:String}]
 
         
 })

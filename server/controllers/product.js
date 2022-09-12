@@ -37,8 +37,69 @@ function newProduct (request,response){
 
 }
 
+
+function getProduct(request,response){
+
+    const {name} = request.body;
+
+    Product.find({"name":{$eq:name}},(error,productStored)=>{
+        if(error){
+            response.status(500).send({message:"Error del servidor."})
+        } else {
+            if (!productStored){
+                response.status(404).send({message:"Productos no encontrados."})
+            } else {
+                response.status(200).send(productStored)
+            }
+
+    }}
+    )
+
+}
+
+
+//nos devuelve un array de productos de tipo "type"
+function getProducts (request,response){
+
+    const {type} = request.params;
+
+    Product.find({"type":{$eq:type}},(error,typeProductsStored)=>{
+        if(error){
+            response.status(500).send({message:"Error del servidor."})
+        } else {
+            if (!typeProductsStored){
+                response.status(404).send({message:"Productos no encontrados."})
+            } else {
+                response.status(200).send({typeProducts:typeProductsStored})
+            }
+
+    }}
+    )
+}
+
+//nos devuelve un array de productos con el atributo saleStatus = true
+function getSaleProducts (request,response){
+  
+    Product.find({"saleStatus":{$eq:true}},(error,saleProductsStored)=>{
+        if(error){
+            response.status(500).send({message:"Error del servidor."})
+        } else {
+            if (!saleProductsStored){
+                response.status(404).send({message:"Productos no encontrados."})
+            } else {
+                response.status(200).send({saleProducts:saleProductsStored})
+            }
+
+    }}
+    )
+}
+
+
 module.exports = {
         
     newProduct,
+    getProduct,
+    getProducts,
+    getSaleProducts
     
 }

@@ -1,6 +1,6 @@
 import {basePath,apiVersion} from './config';
 
-export function newProductApi (data){
+export function newProductApi(data){
 
     const url = `${basePath}/${apiVersion}/new-product`; 
 
@@ -12,8 +12,6 @@ export function newProductApi (data){
         headers: {
             "Content-type":"application/json",                        // ENCABEZADO
         }
-
-
     };
 
     return fetch(url,params).then (response => {return response.json()})
@@ -24,5 +22,80 @@ export function newProductApi (data){
                                 return {ok: false,message: result.message } })
                                     .catch(err => {    // si da error lo capturamos
                                         return {ok: false,message: err.message }}) 
+
+}
+
+export function getProductApi(name){
+    
+    const url = `${basePath}/${apiVersion}/get-product`; 
+
+    const params = {                                              // <<PARAMETROS DE PETICION>>
+
+        method: 'GET',                                             //  METODO
+        body: JSON.stringify(name),
+        headers: {
+            "Content-type":"application/json",                        // ENCABEZADO
+        }
+    };
+
+    return fetch(url,params)
+    .then(response => {
+        return response.json()
+    })
+        .then(result => {
+            return result
+        })
+            .catch(err =>{
+                return err.message
+            })
+
+}
+
+
+export function getProductsApi(type){
+    
+    const url = `${basePath}/${apiVersion}/get-products/${type}`; 
+
+    const params = {                                              // <<PARAMETROS DE PETICION>>
+        method: 'GET',                                             //  METODO
+        headers: {
+            "Content-type":"application/json",                        // ENCABEZADO
+        }
+    };
+
+    return fetch(url,params)
+    .then(response => {
+        return response.json()
+    })
+        .then(result => {
+            return result
+        })
+            .catch(err =>{
+                return err.message
+            })
+
+}
+
+export function getSaleProductsApi(){
+    
+    const url = `${basePath}/${apiVersion}/get-sale-products`; 
+    const params = {                                         
+
+        method: 'GET',                                            
+        headers: {
+            "Content-type":"application/json",                       
+        }
+    };
+
+    return fetch(url,params)
+    .then(response => {
+        return response.json()
+    })
+        .then(result => {
+            return result
+        })
+            .catch(err =>{
+                return err.message
+            })
 
 }

@@ -1,6 +1,8 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 
 import ProductCard from '../../components/ProductCard';
+
+import { getProductsApi } from '../../api/product';
 
 import { jRemeras } from '../../utils/pruebas';
 
@@ -8,15 +10,27 @@ import './Remeras.css'
 
 export default function Remeras() {
 
+  const [arrayRemeras,setArrayRemeras] = useState([]);
 
-console.log(jRemeras)
+  useEffect(()=>{
+    getProductsApi("Remera").then(response => {
+      setArrayRemeras(response.typeProducts);
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    });
+  }
+  ,[])
+
+
+
 
   return (
     <>
     <div className='container remeras-container'>
     
-      {jRemeras.map((remera)=>{
-        return (<ProductCard product={remera} key={remera.id}/>)
+      {arrayRemeras.map((remera)=>{
+        return (<ProductCard product={remera} key={remera._id}/>)
      })}
        
   

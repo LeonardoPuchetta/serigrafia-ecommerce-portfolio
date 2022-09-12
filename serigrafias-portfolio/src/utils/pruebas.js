@@ -37,7 +37,7 @@ export const jRemeras = [
         "files":["imagen1","imagen2","imagen3"]
     },
     {
-        "id":"1",
+        "id":"4",
         "type": "Remera",
         "name": "alfa",
         "description":"una linda remera",
@@ -50,7 +50,7 @@ export const jRemeras = [
       
     },
     {
-        "id":"2",
+        "id":"5",
         "type": "Remera",
         "name": "alfa",
         "description":"una linda remera",
@@ -62,7 +62,7 @@ export const jRemeras = [
         "files":["imagen1","imagen2","imagen3"]
     },
     {
-        "id":"3",
+        "id":"6",
         "type": "Remera",
         "name": "alfa",
         "description":"una linda remera",

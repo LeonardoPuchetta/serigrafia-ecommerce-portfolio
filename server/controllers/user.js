@@ -61,7 +61,7 @@ function signUp(request,response){
 
 function signIn(request,response){
 
-        const params = request.body ;
+        const params = request.body;
         
         const email= params.email;
         const password= params.password;

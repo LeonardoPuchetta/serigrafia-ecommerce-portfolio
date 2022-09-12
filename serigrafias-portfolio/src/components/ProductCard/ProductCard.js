@@ -1,8 +1,11 @@
 import React,{useState} from 'react';
 
+import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import CarouselComponent from '../CarouselComponent';
 import OffCanvasComponent from '../OffCanvasComponent';
+
+import ProductDetail from '../ProductDetail';
 
 import Button from 'react-bootstrap/Button';
 
@@ -15,14 +18,11 @@ export default function ProductCard(props) {
   const [showCanvasProduct, setShowCanvasProduct] = useState(false);
   const handleShowProduct = () => setShowCanvasProduct(true);  
 
-
-
-
 const {product} = props;
 
   return (
     <>
-    <Card  className='product-card'>
+    <Card  className='product-card ' data-aos="fade-up">
       <CarouselComponent/>
       <Card.Body>
         <Card.Title>{product.name} </Card.Title>
@@ -31,11 +31,13 @@ const {product} = props;
         <Card.Text>
           {product.description}
         </Card.Text>
-        
+       
         <Button variant="outline-dark" onClick={handleShowProduct} className='product-card-btn'>Ver detalle</Button>
+        
       </Card.Body>
     </Card>
-    <OffCanvasComponent setShowCanvas={setShowCanvasProduct} show={showCanvasProduct} title={product.name}/>
+    <OffCanvasComponent setShowCanvas={setShowCanvasProduct}
+     show={showCanvasProduct} title="Detalle del producto" componentCanvas={<ProductDetail product={product}/>}/>
     </>  
   )
 }

@@ -1,20 +1,12 @@
 import React ,{useState}from 'react';
-import Button from 'react-bootstrap/Button';
-import RegisterForm from '../RegisterForm';
-import OffCanvasComponent from '../OffCanvasComponent';
 
-import { ACCESS_TOKEN,REFRESH_TOKEN } from './../../utils/constants'
+
+import { ACCESS_TOKEN,REFRESH_TOKEN } from '../../utils/constants'
 
 import { signInApi } from '../../api/user';
 
 
-
-
 export default function LoginForm() {
-
-    const [showCanvasRegister, setShowCanvasRegister] = useState(false);
-    const handleShowRegister = () => setShowCanvasRegister(true);
-    const handleHideRegister = () => setShowCanvasRegister(false);
 
     // estado para guardar datos 
     const [inputs , setInputs] = useState ({
@@ -72,14 +64,6 @@ export default function LoginForm() {
 
       <button type="submit" className="btn btn-primary">Entrar</button>
 </form>
-
-    <hr/>
-    <h6>Aun no tienes cuenta ?</h6>
-    <Button variant='secondary' onClick={handleShowRegister}>Registrate</Button>
-      <OffCanvasComponent show={showCanvasRegister} title='Registro de usuario' 
-            setShowCanvas={setShowCanvasRegister} componentCanvas = {<RegisterForm handleHideRegister={handleHideRegister}/>}>
-      </OffCanvasComponent>
-
 
     </>
   )

@@ -3,6 +3,7 @@ import "./RegisterForm.css";
 
 
 import { signUpApi } from '../../api/user';
+import { newCartApi } from '../../api/cart';
 
 
 export default function RegisterForm(props) {
@@ -21,19 +22,6 @@ export default function RegisterForm(props) {
   privacyPolicy: false
 });
 
-// // estado para validar formulario 
-// const [formValid , setFormValid] = useState ({
-//   // ESTADO INICIAL 
-//   name:false,
-//   lastname:false,
-//   phone:false,
-//   email:false,
-//   password: false,
-//   repeatPassword:false ,
-//   privacyPolicy: false
-
-
-// });
 
 // // funcion onChange para poder actualizar el formulario 
 const changeForm = e => {
@@ -52,92 +40,11 @@ const changeForm = e => {
 
       };
 
-//     // funcion para hacer validacion
 
-// const inputValidation = e => {
 
-//       const {type , name} = e.target;
-
-//       if (type === 'email'){
-        
-//        setFormValid({...formValid,[name] : emailValidation(e.target)} )
-   
-//    }
-//       if (type === 'password'){
-
-//        setFormValid({...formValid,[name] : minLengthValidation(e.target , 6 )})
-//    }
-//       if (type === 'checkbox'){
-          
-//        setFormValid({...formValid,[name] : e.target.checked})
-//    }
-// } 
-
-// const register = async e => {   // funcion que realiza el registro de usuario 
-
-//   e.preventDefault();  // supuestamente para evitar redireccionamiento de la pagina 
-
-//   //const {email,password , repeatPassword,privacyPolicy} = formValid;
-
-//   // traemos los valores ingresados sin usar destructuring 
-//   const nameVal = inputs.name;
-//   const lastnameVal = inputs.lastname;
-//   const phoneVal = inputs.phone;
-//   const emailVal = inputs.email;
-//   const passwordVal = inputs.password;
-//   const repeatPasswordVal = inputs.repeatPassword;
-//   const privacyPolicyVal = inputs.privacyPolicy;
-
-//   if (!emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal|| !nameVal|| !lastnameVal|| !phoneVal) {
-
-//     return (<Alert key='primary' variant='primary'>
-//         'Todos los campos son obligatorios' 
-//     </Alert>)
-     
-
-//       } else {
-//           if ( passwordVal !== repeatPasswordVal){
-
-//             return (<Alert key='primary' variant='primary'>
-//             'Todos los campos son obligatorios' 
-//         </Alert>)
-
-//            } else {
-              
-//               // le pasamos como data los inputs de usuario 
-//               // suponemos que aqui todos los datos estan correctos 
-//           const result = await signUpApi(inputs);
-          
-//           if (!result.ok){
-//             return (<Alert key='primary' variant='primary'>
-//             'Todos los campos son obligatorios' 
-//         </Alert>)
-//               }
-//           else {
-//             // reseteo del formulario 
-//               resetForm(); 
-//               return (<Alert key='primary' variant='primary'>
-//               'Todos los campos son obligatorios' 
-//                </Alert>)   
-//           }
-
-//           }
-
-  
-//       }
-
-//   console.log(formValid) ; 
-
-// } ; 
-
-// funcion de reseteo , se usa en register 
-  // seleccionamos todos los inputs 
+// funcion de reseteo , se usa en register  
 const resetForm = () => {   
   
-  //const input = document.getElementsByName('input');
-
-
-    // reset de inputs 
   setInputs({
     name:"",
     lastname:"",
@@ -154,9 +61,12 @@ const resetForm = () => {
 const register = async e =>{
 
     e.preventDefault();  
-    //console.log(inputs);
-
+    
+    //registramos el usuario
     signUpApi(inputs);
+    //creamos el carrito 
+    newCartApi(inputs.email);
+
 
     resetForm();
 
@@ -169,9 +79,6 @@ const register = async e =>{
 
   return (
     <>
-
-
-
 <form  onSubmit= {register} >
     <div className="form-group">
         <label htmlFor="name">Nombre</label>

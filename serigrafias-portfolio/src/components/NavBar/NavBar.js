@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 import OffCanvasComponent from '../OffCanvasComponent';
 import LoginForm from '../LoginForm';
+import RegisterForm from '../RegisterForm';
 import CartUser from './../CartUser';
 import ProductForm from '../ProductForm';
 
@@ -19,19 +20,32 @@ import './NavBar.css'
 
 
 import useAuth from '../../hooks/useAuth';
-
-
+import { logout } from '../../api/auth';
 
 
 export default function NavBar(props) {
 
-const {user,isLoading} = useAuth();  
+const {user,isLoading} = useAuth(); 
+const [isAdmin,setIsAdmin] = useState(false);
 
+useEffect(()=>{
+      if(user){      
+      setIsAdmin(user.role == "admin");
+      }
+},[user]);
 
-
+//funcion para desloguear usuario y recargar pagina 
+const logoutNav =() =>{
+      logout();
+      window.location.reload();
+}
 
 const [showCanvasLogin, setShowCanvasLogin] = useState(false);
 const handleShowLogin = () => setShowCanvasLogin(true);
+
+const [showCanvasRegister, setShowCanvasRegister] = useState(false);
+const handleShowRegister = () => setShowCanvasRegister(true);
+const handleHideRegister = () => setShowCanvasRegister(false);
 
 const [showCanvasCart, setShowCanvasCart] = useState(false);
 const handleShowCart = () => setShowCanvasCart(true);
@@ -60,16 +74,27 @@ const handleHideAddProduct = () => setShowCanvasAddProduct(false);
           <Nav.Link href="/remeras">Remeras</Nav.Link>
           <Nav.Link href="/laminas">Laminas</Nav.Link>
           <Nav.Link href="/parches">Parches</Nav.Link>
-          <Nav.Link href="/parches">Ofertas</Nav.Link>
+          <Nav.Link href="/ofertas">Ofertas</Nav.Link>
         </Nav>
 
+
         <Nav pullright="true">
-            {user ? <></> : <Button variant="primary" onClick={handleShowLogin} className="me-2">
-                  login
+            {user ?<Button variant="primary" onClick={logoutNav} className="me-2">
+                  Logout
+            </Button> : <></> }
+        </Nav>
+        <Nav pullright="true">
+            {user ? <></> : <Button variant="primary" onClick={handleShowRegister} className="me-2">
+                  Registro
             </Button>}
         </Nav>
         <Nav pullright="true">
-            {user ? <Button variant="primary" onClick={handleShowAddProduct} className="me-2">
+            {user ? <></> : <Button variant="primary" onClick={handleShowLogin} className="me-2">
+                  Login
+            </Button>}
+        </Nav>
+        <Nav pullright="true">
+            {isAdmin ? <Button variant="primary" onClick={handleShowAddProduct} className="me-2">
                   Nuevo producto
             </Button> : <></>}
         </Nav>
@@ -80,11 +105,16 @@ const handleHideAddProduct = () => setShowCanvasAddProduct(false);
         </Nav>
       </Navbar.Collapse>
 
-      {user ? <></> : <OffCanvasComponent show={showCanvasLogin} title='login' 
+      {user ? <></> : <OffCanvasComponent show={showCanvasLogin} title='Login de usuario' 
             setShowCanvas={setShowCanvasLogin} componentCanvas = {<LoginForm/>}></OffCanvasComponent>}
-      {user ?  <OffCanvasComponent show={showCanvasCart} title='cart' 
-            setShowCanvas={setShowCanvasCart} componentCanvas = {<CartUser userData={'hola'}/>}></OffCanvasComponent> : <></>}
-      {user ?  <OffCanvasComponent show={showCanvasAddProduct} title='Nuevo Producto' 
+            
+      {user ? <></> :<OffCanvasComponent show={showCanvasRegister} title='Registro de usuario' 
+            setShowCanvas={setShowCanvasRegister} componentCanvas = {<RegisterForm handleHideRegister={handleHideRegister}/>}>
+      </OffCanvasComponent>}
+      
+      {user ?  <OffCanvasComponent show={showCanvasCart} title='Tus compras' 
+            setShowCanvas={setShowCanvasCart} componentCanvas = {<CartUser userData={user}/>}></OffCanvasComponent> : <></>}
+      {isAdmin ?  <OffCanvasComponent show={showCanvasAddProduct} title='Nuevo Producto' 
             setShowCanvas={setShowCanvasAddProduct} componentCanvas = {<ProductForm handleHideAddProduct={handleHideAddProduct}/>}></OffCanvasComponent> : <></>}
 
     </Container>
