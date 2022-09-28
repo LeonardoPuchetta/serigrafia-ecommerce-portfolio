@@ -1,0 +1,5 @@
+.carousel-inner {
+    border-color: black !important;
+    border-width: 0.09rem !important;
+    border-style:outset;
+}

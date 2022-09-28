@@ -17,6 +17,9 @@ const ProductSchema = Schema({
 
     files:[{
         type: String
+    }],
+    sizes:[{
+        type: String
     }]
 
 

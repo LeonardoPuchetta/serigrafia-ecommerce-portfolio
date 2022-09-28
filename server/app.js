@@ -12,8 +12,7 @@ const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 //carga rutas de product
 const productRoutes = require('./routes/product');
-//carga rutas de cart
-const cartRoutes = require('./routes/cart');
+
 
 
 //para poder tomar datos del body de la peticion
@@ -40,7 +39,7 @@ app.use(`/api/${API_VERSION}`,authRoutes);
 
 app.use(`/api/${API_VERSION}`,productRoutes);
 
-app.use(`/api/${API_VERSION}`,cartRoutes)
+
 
 
 module.exports = app ;

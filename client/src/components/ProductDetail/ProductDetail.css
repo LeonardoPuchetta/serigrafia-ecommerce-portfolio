@@ -1,0 +1,91 @@
+
+.product-detail-container{
+    display: flex;
+    flex-direction: row;
+    padding:  2rem;
+    background-color: azure;
+    margin: 0;
+}
+
+.product-detail-image{
+    width: 40%;
+    height: auto;
+      
+}
+ .product-detail-max-image{
+    /* height: 15rem;
+    width: 15rem; */
+    width: 100%;
+    height: auto;
+ }
+
+.min-list-image{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+li {
+    list-style:none;
+    
+}
+
+
+.product-detail-info{
+   margin-left: 3rem;
+   width: 60%;
+}
+
+.product-detail-info-title{
+   
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.product-detail-info-description{
+    width: 100%;
+}
+
+
+.product-detail-info-price{
+    
+    font-weight: 500;
+    color: #387355;
+    font-size: 1.5rem;
+}
+.product-detail-info-sizes{
+
+}
+
+.btn-group{
+    
+}
+
+.btn-size{
+    padding: 0.6rem 0.75rem 0.6rem 0.75rem !important;
+    margin: 0.5rem;
+    border-radius: 0.15rem !important;
+    border-width: 0.01rem;
+    background-color: white !important;
+    border-color: gray !important;
+    color:black !important;
+    font-size: 0.75rem !important;
+    font-weight: bold !important;
+    font-family: "Nunito Sans",sans-serif !important;
+} 
+
+.btn-size:checked{
+    background-color: black !important;
+}
+
+
+
+
+
+.product-detail-count{
+ 
+}

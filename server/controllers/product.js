@@ -8,7 +8,7 @@ function newProduct (request,response){
 
     const product = new Product();
 
-    const { type,name, description ,price,stock, saleStatus , files } = request.body ; 
+    const { type,name, description ,price,stock, saleStatus , files ,sizes } = request.body ; 
 
     product.name=name;
     product.type = type;
@@ -18,6 +18,7 @@ function newProduct (request,response){
     product.saleStatus=saleStatus;
     //cargar rutas del servidor
     product.files=files;
+    product.sizes=sizes;
 
     product.save((err,productStored) =>{
         if (err){
@@ -40,9 +41,9 @@ function newProduct (request,response){
 
 function getProduct(request,response){
 
-    const {name} = request.body;
+    const {id} = request.params;
 
-    Product.find({"name":{$eq:name}},(error,productStored)=>{
+    Product.find({"_id":{$eq:id}},(error,productStored)=>{
         if(error){
             response.status(500).send({message:"Error del servidor."})
         } else {
@@ -59,7 +60,7 @@ function getProduct(request,response){
 
 
 //nos devuelve un array de productos de tipo "type"
-function getProducts (request,response){
+function getProducts(request,response){
 
     const {type} = request.params;
 
@@ -78,7 +79,7 @@ function getProducts (request,response){
 }
 
 //nos devuelve un array de productos con el atributo saleStatus = true
-function getSaleProducts (request,response){
+function getSaleProducts(request,response){
   
     Product.find({"saleStatus":{$eq:true}},(error,saleProductsStored)=>{
         if(error){
